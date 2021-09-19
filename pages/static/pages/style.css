@@ -1,0 +1,8 @@
+#banner{
+  background: url(../img/about.jpg) center center no-repeat;
+  background-size: cover;
+}
+
+#index{
+  opacity: 0.7;
+}

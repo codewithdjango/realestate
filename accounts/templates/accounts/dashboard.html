@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+
+  <div class="row py-5 text-center">
+    {% include 'partials/_alert.html' %}
+    <div class="col-md-12">
+    <h1>About Our Real Estate</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima, non!</p>
+      
+    </div>
+    
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+      <h3>Welcome {{user.username}}</h3>
+      {% if contacts %}
+        <p>Here are the property listings you are inquires for</p>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Property</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact in contacts %}
+          <tr>
+            <td>{{contact.id}}</td>
+            <td>{{contact.listing}}</td>
+            <td>
+              <a href="{% url 'listing' contact.listing_id %}"> view listing</a> 
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <h3> you have not made any inquries </h3>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock  %}

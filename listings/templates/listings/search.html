@@ -1,0 +1,159 @@
+{% extends 'base.html' %} {% load humanize %} {% load static %} 
+{% block content%}
+
+<div id="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="index">
+          <div class="row p-5">
+            <div
+              class="col-md-8 offset-md-2 bg-dark text-center text-white p-5"
+            >
+              <h1>Property Searching Just Got So Easy</h1>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisici ng elit. Atque,
+                recusandae.
+              </p>
+              <form action="{% url 'search' %}">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="keywords"
+                        id=""
+                        class="form-control"
+                        placeholder="Keywords (Pool, Garage, etc)" value="{{values.keywords}}"
+                        aria-describedby="helpId"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="city"
+                        id=""
+                        class="form-control"
+                        placeholder="City"
+                        aria-describedby="helpId" value="{{values.city}}"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <!-- <label class="sr-only" for="state">State (All)</label> -->
+                      <select class="form-control" name="state">
+                        <option value="" selected="true" disabled="disabled">
+                          State (all)
+                        </option>
+                        {% for key,val in state_choices.items %}
+                        <option value="{{key}}"
+                        {% if key == values.state %}
+                        selected
+                        {% endif %}
+                        
+                        >{{val}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row py-2">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <select class="form-control" name="price">
+                        <option value="" selected="true" disabled="disabled">
+                          Price
+                        </option>
+                        {% for key,val in price_choices.items %}
+                        <option value="{{key}}"
+                        {% if key == values.price %}
+                          selected
+                        {% endif %}>
+                        {{val}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <select class="form-control" name="bedrooms">
+                        <option value="" selected="true" disabled="disabled">
+                          Bedroom
+                        </option>
+                        {% for key,val in bedroom_choices.items %}
+                        <option value="{{key}}"
+                        {% if key == values.bedrooms %}
+                          selected
+                        {% endif %}
+                        >{{val}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-info btn-block my-2">
+                  Submit Form
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row py-5">
+    {% if listings %} {% for listing in listings %}
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row p-3">
+                <div class="col-md-12">
+                  <h4 class="card-title">{{listing.title}}</h4>
+                  <p class="card-text">{{listing.city}}</p>
+                  <p class="card-text">{{ state }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row p-3">
+            <div class="col-md-6">
+              <h5><i class="fas fa-th-large"></i> {{listing.sqft}}</h5>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="fas fa-car"></i>{{listing.garaage}}</h5>
+            </div>
+          </div>
+          <div class="row p-3">
+            <div class="col-md-6">
+              <h5><i class="fas fa-bed"></i> {{listing.bedrooms}}</h5>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="fas fa-bath"></i> {{listing.bathrooms}}</h5>
+            </div>
+          </div>
+          <div class="row p-3">
+            <div class="col-md-12">
+              <h5><i class="fas fa-user"></i> {{listing.realtor}}</h5>
+            </div>
+            <div class="col-md-12">
+              <h5><i class="fas fa-clock"></i> {{listing.list_date}}</h5>
+            </div>
+          </div>
+          <a href="" class="btn btn-primary btn-block">More Info</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <p>No listings</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

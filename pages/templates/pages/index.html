@@ -1,0 +1,114 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div id="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="index">
+          <div class="row p-5">
+            <div
+              class="col-md-8 offset-md-2 bg-dark text-center text-white p-5"
+            >
+              <h1>Property Searching Just Got So Easy</h1>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisici ng elit. Atque,
+                recusandae.
+              </p>
+              <form action="{% url 'search' %}">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="keywords"
+                      id=""
+                      class="form-control"
+                      placeholder="Keywords (Pool, Garage, etc)"
+                      aria-describedby="helpId"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="city"
+                      id=""
+                      class="form-control"
+                      placeholder="City"
+                      aria-describedby="helpId"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <!-- <label class="sr-only" for="state">State (All)</label> -->
+                    <select class="form-control" name="state">
+                      <option value="" selected="true" disabled="disabled">
+                        State (all)
+                      </option>
+                      {% for key,val in state_choices.items %}
+                      <option value="{{key}}">{{val}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row py-2">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <select class="form-control" name="price">
+                      <option value="" selected="true" disabled="disabled">
+                        Price
+                      </option>
+                      {% for key,val in price_choices.items %}
+                      <option value="{{key}}">{{val}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <select class="form-control" name="bedrooms">
+                      <option value="" selected="true" disabled="disabled">
+                        Bedroom
+                      </option>
+                      {% for key,val in bedroom_choices.items %}
+                      <option value="{{key}}">{{val}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-info btn-block my-2">
+                Submit Form
+              </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row py-5">
+    <h4 class="text-center">Latest Listings</h4>
+    {% if listings %} {% for listing in listings %}
+    <div class="col-md-4">
+      <div class="card">
+        <img class="card-img-top" src="{{listing.photo_main.url}}" alt="" />
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{% url 'listing' listing.id %}">{{listing.title}}</a>
+          </h4>
+          <p class="card-text">{{listing.description}}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h2>No listings found</h2>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

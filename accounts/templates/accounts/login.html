@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  <div class="row py-5">
+    <div class="col-md-4 offset-md-4">
+    <div class="card">
+      <h3 class="card-header bg-info"><i class="fa fa-arrow-right" aria-hidden="true"></i> Login</h3>
+            <!--Alerts-->
+            <!--Alerts-->
+      {% include 'partials/_alert.html' %}
+      <div class="card-body">
+        <form action={% url 'login' %} method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="">Username</label>
+            <input type="text" name="username" id="" class="form-control" required placeholder="" aria-describedby="helpId">
+            
+          </div>
+          <div class="form-group py-3">
+            <label for="">Password</label>
+            <input type="password" name="password" id="" class="form-control" placeholder="" aria-describedby="helpId">
+            
+          </div>
+          <input name="" id="" class="btn btn-primary btn-block mt-3" type="submit" value="Login">
+        </form>
+        
+      </div>
+    </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+{% endblock  %}

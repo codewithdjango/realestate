@@ -1,0 +1,110 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+  <div class="row">
+    <!--Alerts-->
+    {% include 'partials/_alert.html' %}
+    <div class="col-md-8">
+      <div class="card">
+        <img class="card-img-top" src="{{listing.photo_main.url}}" alt="" />
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{% url 'listing' listing.id %}">{{listing.title}}</a>
+          </h4>
+          <p class="card-text">{{listing.description}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img class="card-img-top" src="{{listing.realtor.photo.url}}" alt="" />
+        <div class="card-body">
+          <h4 class="card-title">Property Realtor</h4>
+          <p class="card-text">{{listing.realtor.name}}</p>
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            data-toggle="modal"
+            data-target="#modelId"
+          >
+            Make an Inquiry
+          </button>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="modelId"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="modelTitleId"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Make an Inquiry</h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form action="{% url 'contact' %}" method="POST">
+                  {% csrf_token %}
+                    {% if user.is_authenticated %}
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    {% else %}
+                    <input type="hidden" name="user_id" value="0">
+
+                    {% endif %}
+                    <input type="hidden" name="realtor_email" value="{{ listing.realtor.email }}">
+                    <input type="hidden" name="listing_id" value="{{ listing.id }}">
+
+                    <div class="form-group">
+                      <label for="property_name" class="col-form-label">Property:</label>
+                      <input type="text" class="form-control" name="listing" value = "{{ listing.title }}" >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="name" class="col-form-label">Name</label>
+                      <input type="text" class="form-control" name="name" {% if user.is_authenticated %} 
+                      value="{{ user.username }}"{% endif %} >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" name="email" {% if user.is_authenticated %} 
+                      value = "{{user.email}}"{% endif %} required>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="phone">phone</label>
+                      <input type="text" class="form-control" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="message">message</label>
+                      <textarea name="message" class="form-control"></textarea>
+                    </div>
+
+                    <hr>
+
+                    <button type="submit" value="send" class="btn btn-primary btn-block">Submit</button>
+                  </form>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

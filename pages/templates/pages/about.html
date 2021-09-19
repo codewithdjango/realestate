@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="container">
+  <div class="row py-5">
+    <div class="col-md-8">
+      <h2>We Search for the Perfect Home</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, non.
+      </p>
+      <img class="img-fluid" src={% static 'img/building.jpg' %} alt="">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+        reiciendis alias totam explicabo officia facilis fugiat consectetur.
+        Neque sit animi, aliquid nesciunt, inventore dignissimos repellendus
+        consectetur aut deleniti culpa voluptatibus nihil cum enim aspernatur
+        quis asperiores explicabo sapiente id aliquam, ullam vero facilis. Sint
+        quas ipsum commodi nobis velit similique?
+      </p>
+    </div>
+
+    <div class="col-md-4 mt-5 pt-5">
+      {% if length1 > 1 %} 
+      <h2>Sellers of the Month</h2>
+      {% for mvp in mvps %}
+          
+          <img class="img-fluid" src="{{mvp.photo.url}}" alt="" />
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, non.
+      </p>
+      {% endfor %} 
+      {% elif length1 == 1 %}
+      <h2>Seller of the Month</h2>
+      {% for mvp in mvps %}
+      <img class="img-fluid" src="{{mvp.photo.url}}" alt="" />
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, non.
+      </p>
+      {% endfor %} 
+      {% else %}
+      <h4>No MVP available</h4>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

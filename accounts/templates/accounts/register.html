@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row pt-5">
+    <div class="col-md-4 offset-md-4">
+    <div class="card">
+      <h4 class="card-header bg-info text-white"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</h4>
+      <div class="card-body">
+      <!--Alerts-->
+      {% include 'partials/_alert.html' %}
+        <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+          <div class="form-group py-2">
+            <label for="">First Name</label>
+            <input type="text" name="firstname" id="" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+          <div class="form-group py-2">
+            <label for="">Last Name</label>
+            <input type="text" name="lastname" id="" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+          <div class="form-group">
+            <label for="">Username</label>
+            <input type="text" name="username" id="" class="form-control" placeholder="" aria-describedby="helpId">
+            
+          </div>
+          <div class="form-group">
+            <label for="">Email</label>
+            <input type="email" class="form-control" name="email" id="" aria-describedby="emailHelpId" placeholder="">
+      
+          </div>
+          <div class="form-group py-2">
+            <label for="">Password</label>
+            <input type="password" class="form-control" name="password" id="" placeholder="">
+          </div>
+          <div class="form-group pb-2">
+            <label for="">Confirm Password</label>
+            <input type="password" class="form-control" name="password2" id="" placeholder="">
+          </div>
+          <input type="submit" value="Register" class="btn btn-info btn-block">
+        </form>
+      </div>
+    </div>
+      
+    </div>
+    
+  </div>
+</div>
+{% endblock  %}
